@@ -1,0 +1,209 @@
+.directory-info {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-bottom: $spacing-md;
+}
+
+.blog-entry {
+    padding: $spacing-xl 0;
+    border-bottom: 1px solid var(--border);
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.entry-meta {
+    color: var(--text-secondary);
+    font-size: $font-sm;
+    margin-bottom: $spacing-sm;
+    display: flex;
+    gap: $spacing-lg;
+}
+
+.entry-date,
+.entry-size {
+    display: inline-block;
+}
+
+.entry-title {
+    font-size: $font-2xl;
+    margin: $spacing-md 0;
+    font-weight: bold;
+
+    a {
+        color: var(--text-primary);
+        text-decoration: none;
+
+        &:hover {
+            color: var(--accent);
+        }
+    }
+}
+
+.entry-description,
+.entry-summary {
+    color: var(--text-secondary);
+    margin-top: $spacing-md;
+}
+
+.blog-post {
+    padding: $spacing-xl 0;
+}
+
+.post-header {
+    margin-bottom: $spacing-2xl;
+    padding-bottom: $spacing-xl;
+    border-bottom: $border-width solid var(--border);
+}
+
+.post-title {
+    font-size: $font-4xl;
+    margin-bottom: $spacing-lg;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.post-meta {
+    color: var(--text-secondary);
+    font-size: $font-sm;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+}
+
+.meta-label {
+    color: var(--prompt-color);
+    font-weight: bold;
+}
+
+.meta-separator {
+    color: var(--text-secondary);
+}
+
+.post-content {
+    margin: $spacing-2xl 0;
+    line-height: 1.8;
+
+    h1, h2, h3, h4, h5, h6 {
+        margin: 1.56rem 0 $spacing-lg 0;
+        font-weight: bold;
+        color: var(--text-primary);
+    }
+
+    h1 { font-size: $font-3xl; }
+    h2 { font-size: $font-2xl; }
+    h3 { font-size: $font-xl; }
+    h4 { font-size: $font-lg; }
+
+    p {
+        margin: $spacing-lg 0;
+    }
+
+    a {
+        color: var(--link-color);
+        text-decoration: underline;
+
+        &:hover {
+            color: var(--link-hover);
+        }
+    }
+
+    ul, ol {
+        margin: $spacing-lg 0;
+        padding-left: $spacing-3xl;
+    }
+
+    li {
+        margin: $spacing-sm 0;
+    }
+
+    code {
+        background-color: var(--code-bg);
+        padding: 0.13rem 0.38rem;
+        border-radius: 0.19rem;
+        font-family: $font-mono;
+        font-size: $font-sm;
+        color: var(--code-text);
+        border: 1px solid var(--border);
+    }
+
+    pre {
+        background-color: var(--code-bg);
+        padding: $spacing-xl;
+        border-radius: 0.31rem;
+        overflow-x: auto;
+        margin: $spacing-xl 0;
+        border: 1px solid var(--border);
+        line-height: 1.5;
+
+        code {
+            background-color: transparent;
+            padding: 0;
+            border: none;
+            font-size: $font-sm;
+            color: var(--code-text);
+        }
+    }
+
+    blockquote {
+        border-left: 0.25rem solid var(--accent);
+        padding-left: $spacing-xl;
+        margin: $spacing-xl 0;
+        color: var(--text-secondary);
+        font-style: italic;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        margin: $spacing-xl 0;
+        border: 1px solid var(--border);
+        border-radius: 0.31rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: $spacing-xl 0;
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: $spacing-md;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--bg-secondary);
+            font-weight: bold;
+        }
+    }
+
+    pre[data-lang] {
+        position: relative;
+
+        &::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 0.31rem;
+            right: $spacing-md;
+            font-size: $font-xs;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+    }
+}
+
+.post-footer {
+    margin-top: $spacing-3xl;
+    padding-top: $spacing-xl;
+    border-top: $border-width solid var(--border);
+    display: flex;
+    flex-direction: column;
+}
+
+.back-link {
+    @include link-style;
+    display: inline-block;
+    margin-top: 0.13rem;
+}

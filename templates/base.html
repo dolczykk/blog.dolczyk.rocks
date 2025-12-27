@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ config.title }}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}">
+    <link rel="stylesheet" href="{{ get_url(path='main.css') }}">
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+        document.documentElement.setAttribute('data-theme', theme);
+    </script>
+</head>
+<body>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <span class="theme-icon light-icon">[L]</span>
+        <span class="theme-icon dark-icon">[D]</span>
+    </button>
+    <div class="container">
+        <div class="ascii-art">
+<pre>
+ _     _                  _       _                _                     _        
+| |__ | | ___   __ _   __| | ___ | | ___ _____   _| | __  _ __ ___   ___| | _____ 
+| '_ \| |/ _ \ / _` | / _` |/ _ \| |/ __|_  / | | | |/ / | '__/ _ \ / __| |/ / __|
+| |_) | | (_) | (_| || (_| | (_) | | (__ / /| |_| |   < _| | | (_) | (__|   <\__ \
+|_.__/|_|\___/ \__, (_)__,_|\___/|_|\___/___|\__, |_|\_(_)_|  \___/ \___|_|\_\___/
+               |___/                          |___/                                 
+</pre>
+        </div>
+        
+        <nav class="terminal-nav">
+            <a href="{{ get_url(path='/') }}" class="nav-link">[home]</a>
+            <a href="{{ get_url(path='/blogs/') }}" class="nav-link">[blogs]</a>
+        </nav>
+        
+        <main class="terminal-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="terminal-footer">
+            <div class="footer-line">
+                <span>{{ config.title }} © {{ now() | date(format="%Y") }}</span>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        
+        themeToggle.addEventListener('click', () => {
+            const html = document.documentElement;
+            const theme = html.getAttribute('data-theme');
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+.site-header {
+    margin-bottom: $spacing-xl;
+    padding: $spacing-lg 0;
+    border-bottom: $border-width solid var(--border);
+}
+
+.terminal-nav {
+    display: flex;
+    gap: $spacing-lg;
+    flex-wrap: wrap;
+    margin: $spacing-xl 0;
+    padding: $spacing-lg 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-link {
+    @include link-style;
+    transition: color 0.2s;
+    font-size: $font-base;
+}

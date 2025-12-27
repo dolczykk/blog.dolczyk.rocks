@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}{{ config.title }} - Terminal{% endblock %}
+
+{% block content %}
+<div class="terminal-window">
+    <div class="terminal-output">
+        <p class="command-line"><span class="prompt">$</span> cat about.txt</p>
+        <div class="output-text">
+            <p>Welcome to {{ config.title }}</p>
+        </div>
+        
+        <p class="command-line"><span class="prompt">$</span> ls -la blog/</p>
+        <div class="output-text">
+            <p>Recent posts:</p>
+            <ul class="file-list">
+            {% set blog_section = get_section(path="blogs/_index.md") %}
+            {% for page in blog_section.pages | slice(end=5) %}
+                <li class="file-item">
+                    <span class="file-date">{{ page.date | date(format="%Y-%m-%d") }}</span>
+                    <a href="{{ page.permalink }}" class="file-link">{{ page.title }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+            <p style="margin-top: 15px;">
+                <a href="{{ get_url(path='/blogs/') }}" class="view-all-link">→ View all posts</a>
+            </p>
+        </div>
+        
+        <p class="command-line"><span class="prompt">$</span> cat socials.txt</p>
+        <div class="output-text">
+            <p>Connect with me:</p>
+            <ul class="socials-list">
+            {% if config.extra.socials %}
+                {% if config.extra.socials.portfolio %}
+                <li class="social-item">
+                    <span class="social-icon">[P]</span>
+                    <a href="{{ config.extra.socials.portfolio }}" target="_blank" rel="noopener noreferrer" class="social-link">Portfolio</a>
+                </li>
+                {% endif %}
+                {% if config.extra.socials.linkedin %}
+                <li class="social-item">
+                    <span class="social-icon">[LI]</span>
+                    <a href="{{ config.extra.socials.linkedin }}" target="_blank" rel="noopener noreferrer" class="social-link">LinkedIn</a>
+                </li>
+                {% endif %}
+                {% if config.extra.socials.github %}
+                <li class="social-item">
+                    <span class="social-icon">[GH]</span>
+                    <a href="{{ config.extra.socials.github }}" target="_blank" rel="noopener noreferrer" class="social-link">GitHub</a>
+                </li>
+                {% endif %}
+                {% if config.extra.socials.x %}
+                <li class="social-item">
+                    <span class="social-icon">[X]</span>
+                    <a href="{{ config.extra.socials.x }}" target="_blank" rel="noopener noreferrer" class="social-link">X</a>
+                </li>
+                {% endif %}
+                {% if config.extra.socials.email %}
+                <li class="social-item">
+                    <span class="social-icon">[@]</span>
+                    <a href="{{ config.extra.socials.email }}" class="social-link">Email</a>
+                </li>
+                {% endif %}
+            {% endif %}
+            </ul>
+        </div>
+        
+        <p class="command-line"><span class="prompt">$</span> <span class="cursor-blink">█</span></p>
+    </div>
+</div>
+{% endblock %}

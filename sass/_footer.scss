@@ -1,0 +1,15 @@
+.terminal-footer {
+    border-top: none;
+    padding: $spacing-lg $spacing-xl;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.footer-line {
+    text-align: center;
+    font-size: $font-sm;
+    color: var(--text-secondary);
+}
+
+.footer-separator {
+    margin: 0 $spacing-md;
+}

@@ -1,0 +1,127 @@
+.terminal-header {
+    @include border-box;
+    border-bottom: none;
+    padding: $spacing-lg $spacing-xl;
+    background-color: var(--bg-secondary);
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.terminal-prompt {
+    font-size: $font-sm;
+    margin-bottom: $spacing-md;
+    font-weight: bold;
+}
+
+.prompt-user {
+    color: var(--prompt-color);
+}
+
+.prompt-separator {
+    color: var(--text-secondary);
+}
+
+.prompt-path {
+    color: var(--accent);
+}
+
+.prompt-symbol {
+    color: var(--text-primary);
+    margin-left: $spacing-xs;
+}
+
+.cursor {
+    color: var(--text-primary);
+    margin-left: $spacing-xs;
+}
+
+.terminal-content {
+    min-height: 25rem;
+}
+
+.terminal-window {
+    background-color: var(--bg-primary);
+}
+
+.ascii-art {
+    margin-bottom: $spacing-xl;
+    color: var(--text-primary);
+    font-size: $font-xs;
+    line-height: 1.2;
+
+    pre {
+        margin: 0;
+        font-weight: bold;
+    }
+}
+
+.terminal-output {
+    margin-top: $spacing-xl;
+}
+
+.command-line {
+    margin: $spacing-lg 0;
+    font-weight: bold;
+
+    .prompt {
+        color: var(--prompt-color);
+        margin-right: $spacing-sm;
+    }
+}
+
+.output-text {
+    margin: $spacing-md 0 $spacing-xl 0;
+    padding-left: $spacing-xl;
+
+    p {
+        margin: $spacing-xs 0;
+    }
+}
+
+// File List
+.file-list {
+    list-style: none;
+    margin: $spacing-md 0;
+}
+
+.file-item {
+    margin: $spacing-sm 0;
+    @include flex-center;
+    gap: $spacing-lg;
+}
+
+.file-date {
+    color: var(--text-secondary);
+    font-size: $font-sm;
+    min-width: 6.25rem;
+}
+
+.file-link {
+    @include link-style;
+}
+
+.socials-list {
+    list-style: none;
+    margin: $spacing-md 0;
+}
+
+.social-item {
+    margin: $spacing-sm 0;
+    @include flex-center;
+    gap: $spacing-md;
+}
+
+.social-icon {
+    color: var(--prompt-color);
+    font-weight: bold;
+    font-size: $font-sm;
+    min-width: 2.5rem;
+}
+
+.social-link {
+    @include link-style;
+}
+
+.view-all-link {
+    @include link-style;
+    font-size: $font-base;
+}

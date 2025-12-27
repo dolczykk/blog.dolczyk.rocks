@@ -1,0 +1,20 @@
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+}
+
+@mixin link-style {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: bold;
+    
+    &:hover {
+        color: var(--link-hover);
+        text-decoration: underline;
+    }
+}
+
+@mixin border-box($radius: 0.5rem) {
+    border: $border-width solid var(--border);
+    border-radius: $radius;
+}

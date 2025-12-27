@@ -1,0 +1,28 @@
+@media (max-width: 48rem) {
+    .container {
+        padding: $spacing-md;
+    }
+
+    .terminal-header,
+    .terminal-window,
+    .terminal-footer {
+        padding: $spacing-lg;
+    }
+
+    .post-title {
+        font-size: $font-2xl;
+    }
+
+    .entry-title {
+        font-size: $font-xl;
+    }
+
+    .post-meta {
+        flex-direction: column;
+        gap: $spacing-xs;
+    }
+
+    .meta-separator {
+        display: none;
+    }
+}

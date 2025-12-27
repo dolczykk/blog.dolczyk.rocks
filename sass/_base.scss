@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font-mono;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-size: $font-base;
+    transition: background-color $transition-speed ease, color $transition-speed ease;
+}
+
+.container {
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: $spacing-xl;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.cursor,
+.cursor-blink {
+    animation: blink 1s step-end infinite;
+}

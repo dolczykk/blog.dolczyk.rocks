@@ -1,0 +1,19 @@
+// Terminal-style blog theme with light/dark mode
+// Main SCSS entry point - imports all partials
+
+// Configuration
+@import 'variables';
+@import 'mixins';
+
+// Base styles
+@import 'theme';
+@import 'base';
+
+// Components
+@import 'navigation';
+@import 'terminal';
+@import 'blog';
+@import 'footer';
+
+// Utilities
+@import 'responsive';
