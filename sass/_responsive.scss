@@ -1,16 +1,27 @@
 @media (max-width: 48rem) {
+    * {
+        max-width: 100%;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
     .container {
         padding: $spacing-md;
+        width: 100%;
+        max-width: 100%;
     }
 
     .terminal-header,
     .terminal-window,
     .terminal-footer {
-        padding: $spacing-lg;
+        padding: $spacing-md;
     }
 
     .post-title {
         font-size: $font-2xl;
+        word-wrap: break-word;
     }
 
     .entry-title {
@@ -24,5 +35,88 @@
 
     .meta-separator {
         display: none;
+    }
+
+    .ascii-art {
+        font-size: 0.4rem;
+        overflow-x: auto;
+        max-width: 100%;
+        
+        pre {
+            white-space: pre;
+            margin: 0;
+        }
+    }
+
+    .terminal-nav {
+        gap: $spacing-sm;
+    }
+
+    .theme-toggle {
+        margin-left: 0;
+        flex-grow: 1;
+        text-align: right;
+    }
+
+    .post-content {
+        max-width: 100%;
+        overflow-x: hidden;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+
+        * {
+            max-width: 100%;
+        }
+
+        pre {
+            padding: $spacing-sm;
+            font-size: 0.7rem;
+            overflow-x: auto;
+            max-width: 100%;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+
+            code {
+                word-break: normal;
+            }
+        }
+
+        code {
+            font-size: 0.75rem;
+            word-wrap: break-word;
+        }
+
+        table {
+            margin: $spacing-md 0;
+            font-size: 0.85rem;
+
+            th, td {
+                padding: $spacing-sm;
+            }
+        }
+
+        img {
+            max-width: 100% !important;
+            height: auto;
+            width: auto;
+        }
+
+        blockquote {
+            padding-left: $spacing-sm;
+            margin: $spacing-md 0;
+        }
+
+        ul, ol {
+            padding-left: $spacing-lg;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            word-wrap: break-word;
+        }
+
+        p {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
     }
 }

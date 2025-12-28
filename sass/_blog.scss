@@ -136,6 +136,8 @@
         margin: $spacing-xl 0;
         border: 1px solid var(--border);
         line-height: 1.5;
+        max-width: 100%;
+        -webkit-overflow-scrolling: touch;
 
         code {
             background-color: transparent;
@@ -143,6 +145,9 @@
             border: none;
             font-size: $font-sm;
             color: var(--code-text);
+            white-space: pre;
+            word-wrap: normal;
+            display: block;
         }
     }
 
