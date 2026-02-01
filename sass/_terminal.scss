@@ -126,3 +126,37 @@
     @include link-style;
     font-size: $font-base;
 }
+
+// 404 Error Page
+.error-page {
+    text-align: center;
+    padding: $spacing-2xl 0;
+    overflow: hidden;
+}
+
+.error-ascii {
+    font-size: 0.5rem;
+    line-height: 1.1;
+    margin-bottom: $spacing-xl;
+    font-weight: bold;
+    display: inline-block;
+    transform: scale(1);
+    transform-origin: center top;
+}
+
+.error-art {
+    color: var(--text-secondary);
+    font-size: $font-sm;
+    line-height: 1.2;
+    margin-bottom: $spacing-2xl;
+}
+
+.error-message {
+    text-align: left;
+    max-width: 30rem;
+    margin: 0 auto $spacing-2xl;
+    padding: $spacing-lg;
+    background-color: var(--bg-secondary);
+    border-radius: 0.25rem;
+}
+
