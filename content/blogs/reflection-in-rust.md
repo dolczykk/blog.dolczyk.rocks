@@ -450,7 +450,7 @@ User ID: 1, Name: Vincent
 User ID: 2, Name: Panam
 ```
 
-As you can see, we managed to create a DI container in Rust using reflection. Below I leave a link to the repository where you can browse the structure of the entire project.
+As you can see, we managed to create a DI container in Rust using reflection. Below I leave a link to the [repository](https://github.com/dolczykk/di-bevy-container) where you can browse the structure of the entire project.
 
 ## Library limitations
 
