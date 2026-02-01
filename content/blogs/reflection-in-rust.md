@@ -6,7 +6,7 @@ description = "Understanding reflection in Rust"
 
 Reflection is a key mechanism in languages with extensive runtime environments, such as C# or Java. It allows for inspection and modification of a program during its execution. However, in languages like Rust, which prioritize static analysis and performance, the situation looks different. Is reflection even possible in Rust?
 
-## What is reflection
+## What Is Reflection?
 
 Reflection enables modification of a structure, function, or object fields during program execution. Thanks to this mechanism, you can access elements that are normally hidden. For example, if field `A` is private, standard code cannot access it, but using reflection you can force reading or changing its value.
 
@@ -23,7 +23,7 @@ Types of reflection are divided into:
 | Performance overhead at runtime due to long operation execution time | Cost during compilation (longer time, but no additional runtime overhead) |
 | High dynamism, "magical" API, harder to debug | More explicit, statically generated code |
 
-## Where is this mechanism used
+## Where Is This Mechanism Used?
 
 The reflection mechanism is used in:
 
@@ -34,7 +34,7 @@ The reflection mechanism is used in:
 - **Testing** - detecting unit tests using attributes
 - **Metaprogramming** - creating code that manipulates other code
 
-## How does the situation look with Rust
+## How Does the Situation Look in Rust?
 
 Rust does not have built-in dynamic reflection known from C# or Java. This language relies on a metaprogramming system in the form of macros that generate code during compilation process. Although full reflection is not currently part of the language, research work is ongoing (they're experimenting on reflection and comptime feature like mostly 3rd party libraries depends that you can [read here](https://rust-lang.github.io/rust-project-goals/2025h2/reflection-and-comptime.html)).
 
@@ -43,7 +43,7 @@ Currently, there's a 3rd party approach for "pseudo-reflection" in Rust. There a
 - [bevy_reflect](https://crates.io/crates/bevy_reflect)
 - [Facet](https://facet.rs/)
 
-## Example of operation
+## Example of Operation
 
 In this article, I will demonstrate an example of "pseudo-reflection" using the [bevy_reflect](https://crates.io/crates/bevy_reflect) library, because it is a very simple library to use and offers considerable possibilities (yea this library is from game engine called [Bevy](https://bevy.org/)).
 
@@ -104,13 +104,13 @@ player.field_mut("hp").unwrap().apply(&42u32);
 
 Here we call the `field_mut` method, which with the given parameter `"score"` will return a mutable reference to the `score` field, and then we can overwrite it with any value we want.
 
-## How is it possible that reflection works this way
+## How Is It Possible That Reflection Works This Way?
 
 Unlike languages with a runtime like C# or Java, which allow memory inspection during program execution, `bevy_reflect` relies on code generation at compile time.
 
 When we add `#[derive(Reflect)]`, the macro creates a trait implementation inside the same struct. Thanks to this, the generated code has legal access to private fields and exposes them externally through a safe, public interface. This is not magic breaking language rules, but a clever use of the macro system to automate access.
 
-## Operations on dynamic types
+## Operations on Dynamic Types
 
 `bevy_reflect` allows us to create dynamic types during program execution. Types such as the following have been implemented:
 
@@ -155,7 +155,7 @@ fn main() {
 
 The downside is that we cannot write our own function implementation (although it is possible using `DynamicFunction`) for this struct, which is related to the limitations of such a library.
 
-## Let's create something more advanced
+## Create Something More Advanced
 
 For the implementation of this mini project, I chose the goal of creating a simple DI container that will inject dependencies into fields using reflection. It's known that DI implementation is rarely seen in Rust, due to the strong type system, modularity and ownership, but this is a great example of how reflection is used in practice.
 
@@ -452,7 +452,7 @@ User ID: 2, Name: Panam
 
 As you can see, we managed to create a DI container in Rust using reflection. Below I leave a link to the [repository](https://github.com/dolczykk/di-bevy-container) where you can browse the structure of the entire project.
 
-## Library limitations
+## Library Limitations
 
 Despite considerable possibilities, this solution has its drawbacks:
 
@@ -460,7 +460,7 @@ Despite considerable possibilities, this solution has its drawbacks:
 - **Dynamic types cannot be cast** - e.g., `DynamicStruct` to a regular struct isn't achievable
 - **No automatic registration of `dyn Reflect`** - you have to add it manually to make reflection possible
 
-## When NOT to use reflection
+## When Not to Use Reflection
 
 - **When performance matters** - algorithms based on reflection are slower than static code
 - **Type safety** - reflection by nature bypasses some compiler guarantees. Errors may only appear at runtime
