@@ -1,7 +1,7 @@
 +++
 title = "How Rust does Reflection?"
 date = 2026-02-02
-description = "Understanding reflection in Rust: static macros, bevy_reflect and building a DI container"
+description = "Understanding reflection in Rust"
 +++
 
 Reflection is a key mechanism in languages with extensive runtime environments, such as C# or Java. It allows for inspection and modification of a program during its execution. However, in languages like Rust, which prioritize static analysis and performance, the situation looks different. Is reflection even possible in Rust?
@@ -12,8 +12,8 @@ Reflection enables modification of a structure, function, or object fields durin
 
 Types of reflection are divided into:
 
-- **Static** - occurs directly during compilation, e.g., macros (Rust), source generators (C#)
-- **Dynamic** - executes during program runtime, e.g., reading fields from structures, rebuilding a structure by adding fields
+- **Static** - occurs directly during compilation, e.g. macros (Rust), source generators (C#)
+- **Dynamic** - executes during program runtime, e.g. reading fields from structures, rebuilding a structure by adding fields
 
 ### Comparison of reflection types
 
@@ -36,16 +36,16 @@ The reflection mechanism is used in:
 
 ## How does the situation look with Rust
 
-Rust does not have built-in dynamic reflection known from C# or Java. This language relies on a metaprogramming system in the form of macros that generate code during compilation. Although full reflection is not currently part of the language, research work is ongoing (e.g., PR with MVP on GitHub), and the first beginnings of this mechanism are appearing in the standard library.
+Rust does not have built-in dynamic reflection known from C# or Java. This language relies on a metaprogramming system in the form of macros that generate code during compilation process. Although full reflection is not currently part of the language, research work is ongoing (they're experimenting on reflection and comptime feature like mostly 3rd party libraries depends that you can [read here](https://rust-lang.github.io/rust-project-goals/2025h2/reflection-and-comptime.html)).
 
-Currently, a "pseudo-reflection" approach is used. There are libraries that emulate the behavior of dynamic reflection, most often by generating boilerplate code. The most popular ones include:
+Currently, there's a 3rd party approach for "pseudo-reflection" in Rust. There are libraries that "emulate" the behavior of dynamic reflection. The most popular ones include:
 
-- bevy_reflect
-- Facet
+- [bevy_reflect](https://crates.io/crates/bevy_reflect)
+- [Facet](https://facet.rs/)
 
 ## Example of operation
 
-In this article, I will demonstrate an example of "pseudo-reflection" using the [bevy_reflect](https://crates.io/crates/bevy_reflect) library, because it is a very simple library to use and offers considerable possibilities.
+In this article, I will demonstrate an example of "pseudo-reflection" using the [bevy_reflect](https://crates.io/crates/bevy_reflect) library, because it is a very simple library to use and offers considerable possibilities (yea this library is from game engine called [Bevy](https://bevy.org/)).
 
 To perform example reflection, you need to inject the Reflection trait into the derive macro for the selected structure.
 
@@ -89,7 +89,7 @@ fn main() {
     let mut hp = player.get_hp();
     println!("Current hp: {}", hp); // Current hp: 100
 
-    *player.get_field_mut("score").unwrap() = 42u32;
+    player.field_mut("hp").unwrap().apply(&42u32);
 
     hp = player.get_hp();
     println!("Updated hp: {}", hp); // Current hp: 42
@@ -99,46 +99,16 @@ fn main() {
 The most detailed line in this solution:
 
 ```rust
-*player.get_field_mut("score").unwrap() = 42u32;
+player.field_mut("hp").unwrap().apply(&42u32);
 ```
 
-Here we call the `get_field_mut` method, which with the given parameter `"score"` will return a mutable reference to the "score" field, and then we can overwrite it with any value we want.
-
-We can also impose constraints on fields, e.g., a range of values for `hp`:
-
-```rust
-#[derive(Reflect)]
-struct Player {
-    pub name: String,
-    
-    #[reflect(@RangeInclusive::<u32>::new(0, 100))]
-    hp: u32,
-    
-    score: u32
-}
-```
-
-Fortunately, the modification is very simple, because you just need to use the `RangeInclusive` structure to set the maximum hp limit to 100. So now let's modify the following main call:
-
-```rust
-fn main() {
-    let mut player = Player::new("Saburo".to_string());
-
-    let mut hp = player.get_hp();
-    println!("Current hp: {}", hp); // Current hp: 100
-
-    *player.get_field_mut("hp").unwrap() = 200u32;
-
-    hp = player.get_hp();
-    println!("Updated hp: {}", hp); // Updated hp: 100
-}
-```
+Here we call the `field_mut` method, which with the given parameter `"score"` will return a mutable reference to the `score` field, and then we can overwrite it with any value we want.
 
 ## How is it possible that reflection works this way
 
-Unlike languages with a runtime like C# or Java, which allow memory inspection during program execution, `bevy_reflect` relies on **code generation at compile time**.
+Unlike languages with a runtime like C# or Java, which allow memory inspection during program execution, `bevy_reflect` relies on code generation at compile time.
 
-When we add `#[derive(Reflect)]`, the macro creates a trait implementation inside the same module where the structure is defined. Thanks to this, the generated code has **legal access to private fields** and exposes them externally through a safe, public interface. This is not magic breaking language rules, but a clever use of the macro system to automate access.
+When we add `#[derive(Reflect)]`, the macro creates a trait implementation inside the same struct. Thanks to this, the generated code has legal access to private fields and exposes them externally through a safe, public interface. This is not magic breaking language rules, but a clever use of the macro system to automate access.
 
 ## Operations on dynamic types
 
@@ -162,7 +132,8 @@ fn main() {
     player.insert("score", 35u32);
     player.insert("hp", 100u32);
 
-    println!("Struct fields: {:?}", player); // Struct fields: DynamicStruct(_ { name: "Geralt", score: 35, hp: 100 })
+    // Struct fields: DynamicStruct(_ { name: "Geralt", score: 35, hp: 100 })
+    println!("Struct fields: {:?}", player);
 }
 ```
 
@@ -175,14 +146,14 @@ fn main() {
     // Output: Actual score field: 35
     println!("Actual score field: {:?}", player.get_field::<u32>("score").unwrap());
 
-    *player.get_field_mut("score").unwrap() = 200u32;
+    player.field_mut("score").unwrap().apply(&200u32);
 
     // Output: Updated score field: 200
     println!("Updated score field: {:?}", player.get_field::<u32>("score").unwrap());
 }
 ```
 
-The downside is that we cannot write our own function implementation (although it is possible using DynamicFunction) for this struct, which is related to the limitations of such a library.
+The downside is that we cannot write our own function implementation (although it is possible using `DynamicFunction`) for this struct, which is related to the limitations of such a library.
 
 ## Let's create something more advanced
 
@@ -350,7 +321,7 @@ impl Display for Product {
 }
 ```
 
-In User we store id and name, while in Product we have id, name, and price (for now we assume the f64 type for simplicity).
+In `User` we store id and name, while in `Product` we have `id`, `name`, and `price` (for now we assume the `f64` type for simplicity).
 
 Now let's implement the services:
 
@@ -497,4 +468,4 @@ Despite considerable possibilities, this solution has its drawbacks:
 
 ## Summary
 
-Reflection in Rust is possible, although it works on a different principle than in .NET or Java. Instead of introspection supported by a VM, we are dealing with a powerful macro system generating supporting code. Libraries like bevy_reflect allow for creating advanced architectures, however, they should be used consciously, remembering about performance costs and the loss of some static safety guarantees.
+Reflection in Rust is possible, although it works on a different principle than in .NET or Java. Instead of introspection supported by a VM, we are dealing with a powerful macro system generating supporting code. Libraries like `bevy_reflect` allow for creating advanced architectures, however, they should be used consciously, remembering about performance costs and the loss of some static safety guarantees.
