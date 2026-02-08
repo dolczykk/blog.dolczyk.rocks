@@ -1,7 +1,7 @@
 # The URL the site will be built for
 base_url = "https://blog.dolczyk.rocks"
 title = "dolczyk_rocks::blog"
-description = "Programming blog by Daniel Olczyk covering Rust, software development, and technical insights"
+description = "Programming blog by Daniel Olczyk covering software development and technical insights"
 
 default_language = "en"
 
