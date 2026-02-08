@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ config.title }} - Terminal{% endblock %}
+{% block title %}{{ config.title }} - Home{% endblock %}
 
 {% block content %}
 <div class="terminal-window">
@@ -66,7 +66,22 @@
                     <a href="{{ config.extra.socials.email }}" class="social-link">Email</a>
                 </li>
                 {% endif %}
+                <li class="social-item">
+                    <span class="social-icon">[RSS]</span>
+                    <a href="{{ get_url(path='atom.xml') }}" target="_blank" rel="noopener noreferrer" class="social-link">RSS Feed</a>
+                </li>
             {% endif %}
+            </ul>
+        </div>
+        
+        <p class="command-line"><span class="prompt">$</span> cat feeds.txt</p>
+        <div class="output-text">
+            <p>Stay updated:</p>
+            <ul class="socials-list">
+                <li class="social-item">
+                    <span class="social-icon">[RSS]</span>
+                    <a href="{{ get_url(path='atom.xml') }}" target="_blank" rel="noopener noreferrer" class="social-link">Subscribe to RSS Feed</a>
+                </li>
             </ul>
         </div>
         

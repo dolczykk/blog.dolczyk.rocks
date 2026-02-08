@@ -3,8 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>{% block title %}{{ config.title }}{% endblock %}</title>
     <meta name="description" content="{% block description %}{{ config.description }}{% endblock %}">
+    
+    <meta name="author" content="{{ config.extra.author_name }}">
+    <meta name="keywords" content="{% block keywords %}programming, software development, blog, tech{% endblock %}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{% block canonical %}{{ current_url | default(value=config.base_url) }}{% endblock %}">
+
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}{{ current_url | default(value=config.base_url) }}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}{{ config.title }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ config.description }}{% endblock %}">
+    <meta property="og:site_name" content="{{ config.title }}">
+    <meta property="og:locale" content="en_US">
+    {% block og_image %}{% endblock %}
+    
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="{% block twitter_url %}{{ current_url | default(value=config.base_url) }}{% endblock %}">
+    <meta property="twitter:title" content="{% block twitter_title %}{{ config.title }}{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}{{ config.description }}{% endblock %}">
+    <meta property="twitter:creator" content="{{ config.extra.twitter_handle }}">
+    <meta property="twitter:site" content="{{ config.extra.twitter_handle }}">
+    {% block twitter_image %}{% endblock %}
+    
+    <meta name="theme-color" content="{{ config.extra.theme_color }}">
+    <meta name="msapplication-TileColor" content="{{ config.extra.tile_color }}">
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "{% block schema_type %}WebSite{% endblock %}",
+        "name": "{{ config.title }}",
+        "url": "{{ config.base_url }}",
+        "description": "{{ config.description }}",
+        "author": {
+            "@type": "Person",
+            "name": "{{ config.extra.author_name }}",
+            "url": "{{ config.extra.socials.portfolio }}",
+            "sameAs": [
+                "{{ config.extra.socials.github }}",
+                "{{ config.extra.socials.linkedin }}",
+                "{{ config.extra.socials.x }}"
+            ]
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "{{ config.extra.author_name }}"
+        }
+    }
+    </script>
+    
     <link rel="stylesheet" href="{{ get_url(path='main.css') }}">
     <script>
         const savedTheme = localStorage.getItem('theme');

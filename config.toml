@@ -1,7 +1,7 @@
 # The URL the site will be built for
 base_url = "https://blog.dolczyk.rocks"
 title = "dolczyk_rocks::blog"
-description = ""
+description = "Programming blog by Daniel Olczyk covering Rust, software development, and technical insights"
 
 default_language = "en"
 
@@ -15,6 +15,7 @@ compile_sass = true
 build_search_index = false
 generate_sitemap = true
 generate_robots_txt = true
+generate_feeds = true
 
 [markdown]
 # Whether to do syntax highlighting
@@ -22,12 +23,22 @@ generate_robots_txt = true
 highlight_code = true
 
 [extra]
-# Put all your custom variables here
+# Author information
+author_name = "Daniel Olczyk"
+twitter_handle = "@dolczykk"
+
+# Theme colors
+theme_color = "#1a1a1a"
+tile_color = "#1a1a1a"
+
+# Meta descriptions
+default_meta_description = "Programming blog by Daniel Olczyk"
+detailed_meta_description = "Programming blog by Daniel Olczyk covering software development and technical insights"
 
 # Social links
 [extra.socials]
 portfolio = "https://dolczyk.rocks"
 github = "https://github.com/dolczykk"
-x = "https://x.com/MRmlik12"
+x = "https://x.com/dolczykk"
 linkedin = "https://www.linkedin.com/in/daniel-olczyk/"
 email = "mailto:contact@dolczyk.rocks"

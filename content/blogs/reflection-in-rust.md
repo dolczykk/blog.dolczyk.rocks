@@ -2,6 +2,9 @@
 title = "How Rust does Reflection?"
 date = 2026-02-02
 description = "Understanding reflection in Rust"
+
+[extra]
+tags = ["rust", "reflection", "programming", "static-analysis", "metaprogramming"]
 +++
 
 Reflection is a key mechanism in languages with extensive runtime environments, such as C# or Java. It allows for inspection and modification of a program during its execution. However, in languages like Rust, which prioritize static analysis and performance, the situation looks different. Is reflection even possible in Rust?

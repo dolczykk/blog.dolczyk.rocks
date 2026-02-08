@@ -1,7 +1,56 @@
 {% extends "base.html" %}
 
 {% block title %}{{ page.title }} - {{ config.title }}{% endblock %}
-{% block description %}{{ page.description | default(value=page.summary) }}{% endblock %}
+{% block description %}{{ page.description | default(value=page.summary) | default(value="Read about " ~ page.title ~ " on Daniel Olczyk's programming blog") }}{% endblock %}
+
+{% block keywords %}{{ page.extra.tags | default(value=[]) | join(sep=", ") }}, {{ page.title | lower }}, programming, rust, software development, tutorial, tech blog{% endblock %}
+{% block canonical %}{{ page.permalink }}{% endblock %}
+
+{% block og_type %}article{% endblock %}
+{% block og_url %}{{ page.permalink }}{% endblock %}
+{% block og_title %}{{ page.title }}{% endblock %}
+{% block og_description %}{{ page.description | default(value=page.summary) | default(value="Read about " ~ page.title ~ " on Daniel Olczyk's programming blog") }}{% endblock %}
+
+{% block twitter_url %}{{ page.permalink }}{% endblock %}
+{% block twitter_title %}{{ page.title }}{% endblock %}
+{% block twitter_description %}{{ page.description | default(value=page.summary) | default(value="Read about " ~ page.title ~ " on Daniel Olczyk's programming blog") }}{% endblock %}
+
+{% block schema_type %}BlogPosting{% endblock %}
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ page.title }}",
+    "description": "{{ page.description | default(value=page.summary) | default(value="Read about " ~ page.title ~ " on Daniel Olczyk's programming blog") }}",
+    "url": "{{ page.permalink }}",
+    "datePublished": "{{ page.date | date(format="%Y-%m-%d") }}",
+    "dateModified": "{{ page.updated | default(value=page.date) | date(format="%Y-%m-%d") }}",
+    "author": {
+        "@type": "Person",
+        "name": "Daniel Olczyk",
+        "url": "{{ config.extra.socials.portfolio }}",
+        "sameAs": [
+            "{{ config.extra.socials.github }}",
+            "{{ config.extra.socials.linkedin }}",
+            "{{ config.extra.socials.x }}"
+        ]
+    },
+    "publisher": {
+        "@type": "Person",
+        "name": "Daniel Olczyk"
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ page.permalink }}"
+    },
+    "wordCount": {{ page.word_count }},
+    "timeRequired": "PT{{ page.reading_time }}M"
+    {% if page.extra.tags %},
+    "keywords": "{{ page.extra.tags | join(sep=", ") }}"
+    {% endif %}
+}
+</script>
 
 {% block content %}
 <div class="terminal-window">
